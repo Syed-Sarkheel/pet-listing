@@ -85,20 +85,20 @@ VITE_API_URL=http://pets-v2.dev-apis.com
 
 ### Home Page
 
-![Home Page](image-1.png)
+![Home Page](./screenshots/image-1.png)
 
 ### All Pets
 
-![All Pets](image-2.png)
+![All Pets](./screenshots/image-2.png)
 
 ### Search
 
-![Search Pets by category](image-3.png)
+![Search Pets by category](./screenshots/image-3.png)
 
-![Search Pets by breed](image-4.png)
+![Search Pets by breed](./screenshots/image-4.png)
 
-![alt text](image-5.png)
+![alt text](./screenshots/image-5.png)
 
 ### Pet Description
 
-![Pet Description](image-6.png)
+![Pet Description](./screenshots/image-6.png)
