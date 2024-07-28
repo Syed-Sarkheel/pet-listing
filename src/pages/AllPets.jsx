@@ -1,7 +1,6 @@
-// src/components/AllPets.jsx
 import { useState, useEffect } from "react";
-import PetList from "./PetList";
 import { fetchPets } from "../services/api";
+import PetList from "../components/PetList";
 
 const AllPets = () => {
   const [pets, setPets] = useState([]);

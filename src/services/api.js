@@ -1,7 +1,7 @@
 // src/services/api.js
 import axios from "axios";
 
-const API_URL = "http://pets-v2.dev-apis.com";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export const fetchPets = async (page = 1) => {
   const response = await axios.get(`${API_URL}/pets?page=${page}`);

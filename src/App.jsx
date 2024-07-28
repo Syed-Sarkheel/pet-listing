@@ -1,10 +1,9 @@
-// src/App.jsx
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Home from "./components/Home";
-import AllPets from "./components/AllPets";
 import PetDetails from "./components/PetDetails";
-import SearchForm from "./components/SearchForm";
+import Home from "./pages/Home";
+import SearchForm from "./pages/SearchForm";
+import AllPets from "./pages/AllPets";
 
 const App = () => {
   return (

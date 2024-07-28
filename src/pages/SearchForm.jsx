@@ -1,7 +1,6 @@
-// src/components/SearchForm.jsx
 import { useState, useEffect } from "react";
-import PetList from "./PetList";
 import { searchPets, fetchAnimals, fetchBreeds } from "../services/api";
+import PetList from "../components/PetList";
 
 const SearchForm = () => {
   const [animals, setAnimals] = useState([]);
