@@ -1,14 +1,47 @@
-import { useState } from "react";
+// src/components/SearchForm.jsx
+import { useState, useEffect } from "react";
 import PetList from "./PetList";
-import { searchPets } from "../services/api";
+import { searchPets, fetchAnimals, fetchBreeds } from "../services/api";
 
 const SearchForm = () => {
+  const [animals, setAnimals] = useState([]);
   const [animal, setAnimal] = useState("");
-  const [location, setLocation] = useState("");
+  const [breeds, setBreeds] = useState([]);
   const [breed, setBreed] = useState("");
+  const [location, setLocation] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const getAnimals = async () => {
+      try {
+        const data = await fetchAnimals();
+        setAnimals(data.animals);
+      } catch (err) {
+        console.error("Failed to fetch animals:", err);
+      }
+    };
+
+    getAnimals();
+  }, []);
+
+  useEffect(() => {
+    const getBreeds = async () => {
+      if (animal) {
+        try {
+          const data = await fetchBreeds(animal);
+          setBreeds(data.breeds);
+        } catch (err) {
+          console.error("Failed to fetch breeds:", err);
+        }
+      } else {
+        setBreeds([]);
+      }
+    };
+
+    getBreeds();
+  }, [animal]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,7 +50,7 @@ const SearchForm = () => {
 
     try {
       const response = await searchPets(animal, location, breed);
-      setSearchResults(response.data.pets);
+      setSearchResults(response.pets);
     } catch (err) {
       setError("Failed to fetch pets. Please try again.");
     } finally {
@@ -39,13 +72,19 @@ const SearchForm = () => {
           >
             Animal
           </label>
-          <input
-            type="text"
+          <select
             id="animal"
             value={animal}
             onChange={(e) => setAnimal(e.target.value)}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
+          >
+            <option value="">Select an animal</option>
+            {animals.map((animal) => (
+              <option key={animal} value={animal}>
+                {animal}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="mb-4">
           <label
@@ -69,13 +108,20 @@ const SearchForm = () => {
           >
             Breed
           </label>
-          <input
-            type="text"
+          <select
             id="breed"
             value={breed}
             onChange={(e) => setBreed(e.target.value)}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
+            disabled={!animal}
+          >
+            <option value="">Select a breed</option>
+            {breeds.map((breed) => (
+              <option key={breed} value={breed}>
+                {breed}
+              </option>
+            ))}
+          </select>
         </div>
         <button
           type="submit"
