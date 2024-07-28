@@ -25,8 +25,8 @@ This is a Pet Listing website built using React.js and Vite. It allows users to 
 1. Clone the repository:
 
    ````bash
-   git clone https://github.com/yourusername/pet-listing-website.git
-   cd pet-listing-website```
+   git clone https://github.com/Syed-Sarkheel/pet-listing.git
+   cd pet-listing
 
    ````
 
