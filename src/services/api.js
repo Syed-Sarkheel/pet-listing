@@ -8,8 +8,17 @@ export const fetchPets = async (page = 1) => {
   return response.data;
 };
 
-export const fetchPetById = (id) => axios.get(`${API_URL}/pets?id=${id}`);
+export const fetchPetById = async (id) => {
+  const response = await axios.get(`${API_URL}/pets?id=${id}`);
+  return response.data;
+};
 export const searchPets = (animal, location, breed) =>
   axios.get(`${API_URL}/pets`, {
     params: { animal, location, breed },
   });
+
+export const fetchRandomPets = async (limit = 6) => {
+  const response = await axios.get(`${API_URL}/pets`);
+  const pets = response.data.pets.slice(0, limit);
+  return pets;
+};

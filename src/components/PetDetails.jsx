@@ -1,6 +1,6 @@
 // src/components/PetDetails.jsx
-import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { fetchPetById } from "../services/api";
 
 const PetDetails = () => {
@@ -10,10 +10,14 @@ const PetDetails = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const getPet = async () => {
+    const getPetDetails = async () => {
       try {
         const response = await fetchPetById(id);
-        setPet(response.data.pets[0]);
+        if (response.pets && response.pets.length > 0) {
+          setPet(response.pets[0]);
+        } else {
+          setError("Pet not found.");
+        }
       } catch (err) {
         setError("Failed to fetch pet details. Please try again.");
       } finally {
@@ -21,7 +25,7 @@ const PetDetails = () => {
       }
     };
 
-    getPet();
+    getPetDetails();
   }, [id]);
 
   if (loading) {
@@ -38,15 +42,27 @@ const PetDetails = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <div className="bg-white p-4 rounded shadow-lg">
+      <h1 className="text-4xl font-bold text-center mb-4">{pet.name}</h1>
+      <div className="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md">
         <img
-          src={pet.photos[0]?.medium}
+          src={pet.images[0]}
           alt={pet.name}
-          className="w-full h-64 object-cover mb-4"
+          className="w-full max-w-md mx-auto h-64 object-cover mb-4 rounded-t"
         />
-        <h1 className="text-3xl font-bold mb-2">{pet.name}</h1>
-        <p className="text-xl mb-4">{pet.breed}</p>
-        <p className="text-gray-700">{pet.description}</p>
+        <div className="text-center text-lg">
+          <p className="font-semibold mb-2">
+            <span className="font-bold">Name:</span> {pet.name}
+          </p>
+          <p className="font-semibold mb-2">
+            <span className="font-bold">Location:</span> {pet.city}, {pet.state}
+          </p>
+          <p className="font-semibold mb-2">
+            <span className="font-bold">Breed:</span> {pet.breed}
+          </p>
+          <p className="font-semibold mb-2">
+            <span className="font-bold">Description:</span> {pet.description}
+          </p>
+        </div>
       </div>
     </div>
   );
