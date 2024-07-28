@@ -11,8 +11,6 @@ This is a Pet Listing website built using React.js and Vite. It allows users to 
 - [Folder Structure](#folder-structure)
 - [Usage](#usage)
 - [Screenshots](#screenshots)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Features
 
